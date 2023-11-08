@@ -36,10 +36,10 @@ const paquetePost = async (req, res = response) => {
 }
 
 const paquetePut = async (req, res = response) => {
-    const { paquetes,servicios,cantidad,total,estado } = req.body//modificar
+    const {_id, paquetes,servicios,cantidad,total,estado } = req.body//modificar
     
     try {
-        const paquete = await Paquete.findOneAndUpdate({ _id:id }, {paquetes,servicios, cantidad,total,  estado },{new:true})//Primera llave es el nombre del atributo, el segundo es el nuevo atributo
+        const paquete = await Paquete.findOneAndUpdate( _id,{  paquetes,servicios, cantidad,total,  estado },{new:true}) //Primera llave es el nombre del atributo, el segundo es el nuevo atributo
       
         if (paquete) {
             res.json({
