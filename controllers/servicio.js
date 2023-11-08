@@ -34,15 +34,23 @@ const servicioPost = async (req, res = response) => {
     })
 }
 
+
 const servicioPut = async (req, res = response) => {
-    const { _id, servicios, cantidad, precio, estado } = req.body
+    const { _id, servicios, cantidad, precio, estado } = req.body;
     try {
-        const servicio_search = await Servicio.findByPk(_id);
-        if (servicio_search != null || servicio_search != undefined) {
-            const servicio = await Servicio.findOneAndUpdate(_id, { servicios, cantidad, precio, estado }, { new: true })//Primera llave es el nombre del atributo, el segundo es el nuevo atributo
+        const servicio = await Servicio.findOneAndUpdate(
+            { _id: _id }, // Objeto de consulta con el _id del servicio
+            { servicios, cantidad, precio, estado }, 
+            { new: true }
+        );
+        if (servicio) {
             res.json({
-                msg: 'La modificación de los servicios se efectuó exitosamente',
+                msg: 'La modificación del servicio se efectuó exitosamente',
                 servicio
+            });
+        } else {
+            res.status(404).json({
+                msg: 'Servicio no encontrado'
             });
         }
     } catch (error) {
@@ -51,7 +59,7 @@ const servicioPut = async (req, res = response) => {
             msg: 'Error en el servidor'
         });
     }
-}
+};
 
 const servicioDelete = async (req, res = response) => {
     const { _id } = req.query;
