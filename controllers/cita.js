@@ -33,10 +33,15 @@ const citaPost = async (req, res = response) => {
     })
 }
 const citaPut = async (req, res = response) => {
-    const { nombreYapellido,fecha,hora,restrincciones,tiposervicio,estado } = req.body//modificar
-   
+    const { _id, nombreYapellido, fecha, hora, restrincciones, tiposervicio, estado } = req.body;
+
     try {
-        const cita = await Cita.findOneAndUpdate({ _id:_id}, {nombreYapellido,fecha,hora,restrincciones,tiposervicio,estado }, {new:true})//Primera llave es el nombre del atributo, el segundo es el nuevo atributo
+        const cita = await Cita.findOneAndUpdate(
+            { _id: _id }, // Filtro para encontrar la cita por su ID
+            { nombreYapellido, fecha, hora, restrincciones, tiposervicio, estado }, // Nuevos valores a actualizar
+            { new: true } // Devolver el documento modificado en lugar del original
+        );
+
         if (cita) {
             res.json({
                 msg: 'La modificación de la cita se efectuó exitosamente',
@@ -44,7 +49,7 @@ const citaPut = async (req, res = response) => {
             });
         } else {
             res.status(404).json({
-                msg: 'No se encontró ningúna cita con el ID proporcionado'
+                msg: 'No se encontró ninguna cita con el ID proporcionado'
             });
         }
     } catch (error) {
@@ -53,7 +58,7 @@ const citaPut = async (req, res = response) => {
             msg: 'Error en el servidor'
         });
     }
-}
+};
 
 const citaDelete = async (req, res = response) => {
     const { _id } = req.query;
