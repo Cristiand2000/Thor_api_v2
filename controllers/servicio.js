@@ -35,19 +35,28 @@ const servicioPost = async (req, res = response) => {
 }
 
 const servicioPut = async (req, res = response) => {
-    const { servicios,clases,precio,estado } = req.body//modificar
+    const { servicios,cantidad,precio,estado } = req.body//modificar
 
-    let mensaje = ""
+  
 
     try {
-        const servicio = await Servicio.findOneAndUpdate({ servicio: servicio }, {cantidad:cantidad, precio: precio, estado: estado })//Primera llave es el nombre del atributo, el segundo es el nuevo atributo
-        mensaje = "Modificado exitosamente los servicios"
-    } catch (error) {
-        mensaje = "No modificado"
+        const servicio = await Servicio.findOneAndUpdate({ _id: _id }, {servicios,cantidad,  precio,  estado }, {new:true})//Primera llave es el nombre del atributo, el segundo es el nuevo atributo
+        if (servicio) {
+            res.json({
+                msg: 'La modificación de los servicios se efectuó exitosamente',
+                servicio
+            });
+        } else {
+            res.status(404).json({
+                msg: 'No se encontró ningún servicio con el ID proporcionado'
+            });
+        }
+    }  catch (error) {
+        console.error(error);
+        res.status(500).json({
+            msg: 'Error en el servidor'
+        });
     }
-    res.json({
-        msg: mensaje
-    })
 }
 
 const servicioDelete = async (req, res = response) => {

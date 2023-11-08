@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const ServicioSchema = Schema({
-    servicio: {
+    servicios: {
         type: String,
         required: [true, 'El servicio es requerido'],
         match: [/^[A-Za-z0-9\s]+$/, 'Los servicios solo deben contener letras, números y espacios']// Validación de coincidencia para letras y números        

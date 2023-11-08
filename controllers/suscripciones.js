@@ -38,12 +38,12 @@ const suscripcionesPut = async (req, res = response) => {
 
     
     try {
-        const roles = await Suscripciones.findByIdAndUpdate({ _id: _id}, {tipoDocumento,Documento,nombres,apellidos,direccion,telefono,correo,password,estado,epstipoPaquete, fechaPago,precio,tipoPago,  estadoSuscripcion}, { new: true }); 
+        const suscripciones = await Suscripciones.findByIdAndUpdate({ _id: _id}, {tipoDocumento,Documento,nombres,apellidos,direccion,telefono,correo,password,estado,epstipoPaquete, fechaPago,precio,tipoPago,  estadoSuscripcion}, { new: true }); 
 
-        if (roles) {
+        if (suscripciones) {
             res.json({
                 msg: 'La modificación de la suscripcion se efectuó exitosamente',
-                roles 
+                suscripciones 
             });
         } else {
             res.status(404).json({

@@ -37,17 +37,28 @@ const paquetePost = async (req, res = response) => {
 
 const paquetePut = async (req, res = response) => {
     const { paquetes,servicios,cantidad,total,estado } = req.body//modificar
-    let mensaje = ""
+    
     try {
-        const paquete = await Paquete.findOneAndUpdate({ paquetes: paquetes }, {servicios:servicios, cantidad: cantidad,total:total, estado: estado })//Primera llave es el nombre del atributo, el segundo es el nuevo atributo
-        mensaje = " Paquete Modificado"
-    } catch (error) {
-        mensaje = "No modificado"
+        const paquete = await Paquete.findOneAndUpdate({ _id:id }, {paquetes,servicios, cantidad,total,  estado },{new:true})//Primera llave es el nombre del atributo, el segundo es el nuevo atributo
+      
+        if (paquete) {
+            res.json({
+                msg: 'La modificación del paquete se efectuó exitosamente',
+                paquete
+            });
+        } else {
+            res.status(404).json({
+                msg: 'No se encontró ningún paquete con el ID proporcionado'
+            });
+        }
+    }  catch (error) {
+        console.error(error);
+        res.status(500).json({
+            msg: 'Error en el servidor'
+        });
     }
-    res.json({
-        msg: mensaje
-    })
-}
+  
+};
 
 const paqueteDelete = async (req, res = response) => {
     const { _id } = req.query;
