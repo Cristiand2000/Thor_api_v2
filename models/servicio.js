@@ -24,11 +24,9 @@ const ServicioSchema = Schema({
     },
   
     estado: {
-        type: String,
-        required: [true, 'El estado es requerido'],
-        enum: ['Activo', 'Inactivo'], // Usar minúsculas
-        match: [/^[A-Za-z\s]+$/, 'El estado de servicios solo debe contener letras en minúsculas'],
-        default: 'Activo',
+        type: Boolean,
+    required: [true, 'El campo estado es requerido'],
+    default: true
     },    
 });
 

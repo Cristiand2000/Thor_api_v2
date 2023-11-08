@@ -34,11 +34,11 @@ const suscripcionesPost = async (req, res = response) => {
     })
 }
 const suscripcionesPut = async (req, res = response) => {
-    const { _id,tipoPaquete, fechaPago,precio,  estadoSuscripcion } = req.body;
+    const { _id,tipoDocumento,Documento,nombres,apellidos,direccion,telefono,correo,password,estado,epstipoPaquete, fechaPago,precio,tipoPago,  estadoSuscripcion } = req.body;
 
     
     try {
-        const roles = await Suscripciones.findByIdAndUpdate({ _id: _id}, {tipoPaquete,fechaPago,precio, estadoSuscripcion}, { new: true }); 
+        const roles = await Suscripciones.findByIdAndUpdate({ _id: _id}, {tipoDocumento,Documento,nombres,apellidos,direccion,telefono,correo,password,estado,epstipoPaquete, fechaPago,precio,tipoPago,  estadoSuscripcion}, { new: true }); 
 
         if (roles) {
             res.json({

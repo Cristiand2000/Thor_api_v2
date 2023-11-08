@@ -9,19 +9,6 @@ const CitaSchema = Schema({
     fecha: {
         type: String,
         required: [true, 'La fecha es requerida'],
-        validate: {
-            validator: function (value) {
-                // Validación de fecha en formato "dd-mm-yyyy"
-                const datePattern = /^\d{2}-\d{2}-\d{4}$/;
-                if (!datePattern.test(value)) {
-                    return false;
-                }
-                const currentDate = new Date();
-                const selectedDate = new Date(value);
-                return selectedDate >= currentDate;
-            },
-            message: 'La fecha debe ser mayor o igual a la fecha actual en formato dd-mm-yyyy',
-        },
     },
     hora: {
         type: String,
@@ -47,10 +34,9 @@ const CitaSchema = Schema({
         match: [/^[A-Za-z]+$/, 'El tipo de servicio solo deben contener letras y solo puede ser evaluacion y nutricion']
     },
     estado: {
-        type: String,
-        required: [true, 'El estado es requerido'],
-        match: [/^[A-Za-z]+$/, 'El estado solo debe contener letras y solo puede ser Hoy, Pendiente, Ejecución, Cancelo y Ejecutada'],
-        enum: ['Hoy', 'Pendiente', 'Ejecución', 'Cancelo', 'Ejecutada']
+        type: Boolean,
+        required: [true, 'El campo estado  es requerido'],
+        default: true
     }
 });
 

@@ -40,11 +40,9 @@ const PaqueteSchema = Schema({
         match: [/^[0-9\s]+$/, 'El precio de venta solo debe contener números y debe ser minimo 5000 y maximo 1000000']
     },
     estado: {
-        type: String,
-        required: [true, 'El estado es requerido'],
-        enum: ['Activo', 'Inactivo'],
-        match: [/^[A-Za-z\s]+$/, 'El estado de servicios solo debe contener letras'],
-        default: 'Activo',
+        type: Boolean,
+        required: [true, 'El campo estado es requerido'],
+        default: true
     },
 });
 
